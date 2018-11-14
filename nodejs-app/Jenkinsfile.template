@@ -1,3 +1,5 @@
+library 'cd-accel'
+def testPodYaml = libraryResource 'podtemplates/nodejs-app/web-test-pod.yml'
 pipeline {
   agent none
   options { 
@@ -6,7 +8,12 @@ pipeline {
   }
   stages {
     stage('Test') {
-      agent { label 'nodejs-app' }
+       agent {
+        kubernetes {
+          label 'nodejs-testcafe'
+          yaml testPodYaml
+        }
+      }
       steps {
         checkout scm
         container('nodejs') {
