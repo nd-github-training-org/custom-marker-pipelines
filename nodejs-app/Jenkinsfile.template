@@ -8,7 +8,6 @@ pipeline {
           label 'nodejs-testcafe'
           yaml testPodYaml
         }
-      }
       steps {
          checkout scm
          container('nodejs') {
