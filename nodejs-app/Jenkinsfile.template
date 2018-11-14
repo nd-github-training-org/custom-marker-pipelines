@@ -25,12 +25,10 @@ pipeline {
         branch 'master'
       }
       options {
-        timeout(time: 60, unit: 'SECONDS') 
+        timeout(time: 30, unit: 'SECONDS') 
       }
       input {
         message "Should we deploy?"
-        submitter "LeeDavis"
-        submitterParameter "APPROVER"
       }
       
       steps {
@@ -40,5 +38,10 @@ pipeline {
   }
   options { 
     buildDiscarder(logRotator(numToKeepStr: '2'))
+  }
+   post {
+    aborted {
+      echo "Why didn't you push my button?"
+    }
   }
 }
